@@ -1,0 +1,57 @@
+name: Build & Release
+
+# Every push and pull request builds the DMG and attaches it to the run.
+# Pushing a tag like v1.2.0 also publishes a GitHub release with the DMG.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="0.0.0-dev.${GITHUB_RUN_NUMBER}"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build app (universal)
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          BUILD: ${{ github.run_number }}
+          UNIVERSAL: "1"
+        run: |
+          ./build-app.sh
+          lipo -info build/iTermPresets.app/Contents/MacOS/iTermPresets
+
+      - name: Build DMG
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./make-dmg.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iTermPresets-${{ steps.version.outputs.version }}
+          path: dist/*.dmg
+
+      - name: Publish release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.dmg \
+            --title "iTerm Presets ${{ steps.version.outputs.version }}" \
+            --generate-notes
