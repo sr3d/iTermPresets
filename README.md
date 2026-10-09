@@ -1,4 +1,25 @@
-# iTerm Presets
+<p align="center">
+  <img src="Icon/AppIcon.png" width="128" alt="iTerm Presets icon">
+</p>
+
+<h1 align="center">iTerm Presets</h1>
+
+<p align="center">
+  Restore your whole iTerm2 setup in one click — windows, tabs, colors, split panes and startup commands.
+</p>
+
+<p align="center">
+  <a href="https://github.com/sr3d/iTermPresets/releases/latest/download/iTermPresets.dmg"><b>⬇ Download for macOS</b></a>
+  &nbsp;·&nbsp; macOS 13+ · Apple silicon &amp; Intel
+  &nbsp;·&nbsp; <a href="https://github.com/sr3d/iTermPresets/releases">All releases</a>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/editor-dark.png">
+    <img src="docs/screenshots/editor-light.png" width="860" alt="The preset editor: a sidebar of presets, window chips, colored tabs and a visual split-pane designer">
+  </picture>
+</p>
 
 A small macOS app for defining iTerm2 "presets": one or more windows, each placed where you
 want it on screen and holding a set of tabs. Each tab has a title, tab color, working directory,
@@ -8,10 +29,18 @@ click, for example after a reboot.
 Opening a preset **only adds** windows, tabs and splits. It never closes, quits or rearranges
 anything already open in iTerm.
 
+### Highlights
+
+- **Draw your splits.** Drag a line across a pane to split it, click a pane to set its folder and command.
+- **Colored tabs.** Pick a tab color from the palette, or any color.
+- **Folder autocomplete.** Suggestions appear as you type, Tab completes like a shell, or Browse….
+- **Multiple windows, placed exactly.** Drag a ghost window to where each iTerm window should open.
+- **Lives in iTerm.** Presets show up under iTerm → Scripts, and can run automatically when iTerm starts.
+
 ## Download
 
-Grab the latest `iTermPresets-<version>.dmg` from
-[Releases](https://github.com/sr3d/iTermPresets/releases), open it and drag the app into
+[Download the latest DMG](https://github.com/sr3d/iTermPresets/releases/latest/download/iTermPresets.dmg)
+(or pick a version from [Releases](https://github.com/sr3d/iTermPresets/releases)), open it and drag the app into
 Applications. The app is ad-hoc signed, not notarized, so the first time you open it macOS will
 refuse. Right-click the app and choose **Open**, or run:
 
@@ -47,6 +76,10 @@ The app icon is drawn in code. To change it, edit `Icon/make-icon.swift` and run
 `swift Icon/make-icon.swift`, which regenerates `Icon/AppIcon.icns`.
 
 ## Windows and placement
+
+<p align="center">
+  <img src="docs/screenshots/ghost.png" width="640" alt="A ghost window showing the window's tabs and split layout, with snap buttons and Done">
+</p>
 
 - A preset can open several iTerm windows. The **window bar** above the tabs switches between
   them. **New Window** adds one, and right-clicking a window lets you duplicate, reorder or delete it.
